@@ -7,6 +7,38 @@ let temp = [];
 const clear = document.querySelector('.clear');
 const del = document.querySelector('.delete');
 
+numberInput.forEach(number => {
+	number.addEventListener('click', () => {
+		display.textContent += number.textContent;
+	})
+});
+
+operators.forEach(operator => {
+	operator.addEventListener('click', () => {
+		operatorType = operator.textContent;
+		input = display.textContent;
+		
+        if(operatorType === '=') {
+            temp.push(parseFloat(display.textContent));
+            operate(temp);
+        }
+        else {
+            temp.push(parseFloat(input));
+            temp.push(operatorType);
+            display.textContent = '';
+        }
+	})  
+     
+});
+
+clear.addEventListener('click', () => {
+    display.textContent = '';
+})
+
+del.addEventListener('click', () => {
+    display.textContent = display.textContent.slice(0,-1);
+})
+
 function add(a, b) {
 	return a + b;
 }
@@ -49,35 +81,3 @@ function operate(t) {
     }
     display.textContent = Math.round((temp[temp.length - 1] + Number.EPSILON) * 100) / 100;
 }
-
-numberInput.forEach(number => {
-	number.addEventListener('click', () => {
-		display.textContent += number.textContent;
-	})
-});
-
-operators.forEach(operator => {
-	operator.addEventListener('click', () => {
-		operatorType = operator.textContent;
-		input = display.textContent;
-		
-        if(operatorType === '=') {
-            temp.push(parseFloat(display.textContent));
-            operate(temp);
-        }
-        else {
-            temp.push(parseFloat(input));
-            temp.push(operatorType);
-            display.textContent = '';
-        }
-	})  
-     
-});
-
-clear.addEventListener('click', () => {
-    display.textContent = '';
-})
-
-del.addEventListener('click', () => {
-    display.textContent = display.textContent.slice(0,-1);
-})
