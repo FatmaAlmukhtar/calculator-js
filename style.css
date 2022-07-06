@@ -1,0 +1,48 @@
+.display {
+    width: 200px;
+    height: 50px;
+    border: solid 2px black;
+    margin-bottom: 5px;
+}
+
+.inputs {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-template-rows: repeat(5, 1fr);
+    height: 100px;
+    width: 200px;
+}
+
+.one, .two, .three, .minus {
+    grid-row: 4;
+}
+
+.four, .five, .six, .mult {
+    grid-row: 3;
+}
+
+.seven, .eight, .nine, .divide {
+    grid-row: 2;
+}
+
+.zero {
+    grid-row: 5;
+    grid-column-start: 1;
+    grid-column-end: 4;
+}
+
+.plus {
+    grid-row: 5;
+}
+
+.clear {
+    grid-row: 1;
+    grid-column-start: 1;
+    grid-column-end: 3;
+}
+
+.equal {
+    grid-row: 1;
+    grid-column-start: 3;
+    grid-column-end: 5;
+}
