@@ -4,6 +4,8 @@ let display = document.querySelector('.display');
 let operatorType = '';
 let temp = [];
 
+const clear = document.querySelector('.clear');
+
 function add(a, b) {
 	return a + b;
 }
@@ -71,5 +73,6 @@ operators.forEach(operator => {
      
 });
 
-
-
+clear.addEventListener('click', () => {
+    display.textContent = '';
+})
