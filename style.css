@@ -13,25 +13,25 @@
     width: 200px;
 }
 
-.one, .two, .three, .minus {
+.one, .two, .three, .plus {
     grid-row: 4;
 }
 
-.four, .five, .six, .mult {
+.four, .five, .six, .minus {
     grid-row: 3;
 }
 
-.seven, .eight, .nine, .divide {
+.seven, .eight, .nine, .mult {
     grid-row: 2;
 }
 
 .zero {
     grid-row: 5;
     grid-column-start: 1;
-    grid-column-end: 4;
+    grid-column-end: 3;
 }
 
-.plus {
+.dot, .equal {
     grid-row: 5;
 }
 
@@ -41,8 +41,6 @@
     grid-column-end: 3;
 }
 
-.equal {
+.delete, .divide {
     grid-row: 1;
-    grid-column-start: 3;
-    grid-column-end: 5;
 }
