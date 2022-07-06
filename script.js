@@ -5,6 +5,7 @@ let operatorType = '';
 let temp = [];
 
 const clear = document.querySelector('.clear');
+const del = document.querySelector('.delete');
 
 function add(a, b) {
 	return a + b;
@@ -46,7 +47,7 @@ function operate(t) {
             }
         }
     }
-    display.textContent = temp[temp.length - 1];
+    display.textContent = Math.round((temp[temp.length - 1] + Number.EPSILON) * 100) / 100;
 }
 
 numberInput.forEach(number => {
@@ -61,11 +62,11 @@ operators.forEach(operator => {
 		input = display.textContent;
 		
         if(operatorType === '=') {
-            temp.push(parseInt(display.textContent));
+            temp.push(parseFloat(display.textContent));
             operate(temp);
         }
         else {
-            temp.push(parseInt(input));
+            temp.push(parseFloat(input));
             temp.push(operatorType);
             display.textContent = '';
         }
@@ -75,4 +76,8 @@ operators.forEach(operator => {
 
 clear.addEventListener('click', () => {
     display.textContent = '';
+})
+
+del.addEventListener('click', () => {
+    display.textContent = display.textContent.slice(0,-1);
 })
