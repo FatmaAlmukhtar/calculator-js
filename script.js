@@ -2,41 +2,62 @@ let operators = document.querySelectorAll('.operator');
 let numberInput = document.querySelectorAll('.number');
 let display = document.querySelector('.display');
 let operatorType = '';
-let temp = [];
+
+let history = document.querySelector('.history');
+let result = document.querySelector('.res');
 
 const clear = document.querySelector('.clear');
 const del = document.querySelector('.delete');
 
+
 numberInput.forEach(number => {
 	number.addEventListener('click', () => {
-		display.textContent += number.textContent;
+        if(number.textContent === '.' && result.textContent.includes('.')) return
+		result.textContent += number.textContent;
 	})
 });
 
 operators.forEach(operator => {
 	operator.addEventListener('click', () => {
-		operatorType = operator.textContent;
-		input = display.textContent;
-		
-        if(operatorType === '=') {
-            temp.push(parseFloat(display.textContent));
-            operate(temp);
+        
+        if (result.textContent === '') return
+        
+        if (history.textContent !== '') {
+            if (operator.textContent === '=') {
+                a = parseFloat(history.textContent.slice(0,-1));
+                op = history.textContent.slice(-1);
+                b = parseFloat(result.textContent);
+                result.textContent = operate(a, op, b).toString();
+                history.textContent = '';
+            }
+            else {
+                a = parseFloat(history.textContent.slice(0,-1));
+                op = history.textContent.slice(-1);
+                b = parseFloat(result.textContent);
+                history.textContent = operate(a, op, b).toString() + ' ' + operator.textContent;
+                result.textContent = '';
+            }
+            
         }
         else {
-            temp.push(parseFloat(input));
-            temp.push(operatorType);
-            display.textContent = '';
+            operatorType = operator.textContent;
+            input = result.textContent;
+            history.textContent = input + ' ' + operatorType;
+            result.textContent = ''
         }
+		
+        
 	})  
      
 });
 
 clear.addEventListener('click', () => {
-    display.textContent = '';
+    history.textContent = '';
+    result.textContent = '';
 })
 
 del.addEventListener('click', () => {
-    display.textContent = display.textContent.slice(0,-1);
+    result.textContent = result.textContent.slice(0,-1);
 })
 
 function add(a, b) {
@@ -52,32 +73,32 @@ function multiply(a, b) {
 }
 
 function divide(a, b) {
-	return a / b;
+    if (b !== 0) return a / b;
+    alert('cannot divide by zero');
+    return;
 }
 
-function operate(t) {
-    for(let i=0; i<t.length; i++) {
-        if(typeof t[i] === 'string') {
-            switch (t[i]) {
-                case '+':
-                    t[i+1] = add(t[i-1], t[i+1]);
-                    break;
+function operate(a, op, b) {
+    
+    switch (op) {
+        case '+':
+            a = add(a, b);
+            break;
 
-                case '-':
-                    t[i+1] = subtract(t[i-1], t[i+1]);
-                    break;
-                
-                case 'x':
-                    t[i+1] = multiply(t[i-1], t[i+1]);
-                    break;
+        case '-':
+            a = subtract(a, b);
+            break;
+        
+        case 'x':
+            a = multiply(a, b);
+            break;
 
-                case '÷':
-                    t[i+1] = divide(t[i-1], t[i+1]);
-                    break;
-                default:
-                    break;
-            }
-        }
+        case '÷':
+            a = divide(a, b);
+            break;
+        default:
+            break;
     }
-    display.textContent = Math.round((temp[temp.length - 1] + Number.EPSILON) * 100) / 100;
+    
+    return res = Math.round((a + Number.EPSILON) * 100) / 100;
 }
