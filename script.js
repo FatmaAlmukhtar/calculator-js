@@ -5,6 +5,39 @@ const result = document.querySelector('.result');
 const clear = document.querySelector('.clear');
 const del = document.querySelector('.delete');
 
+window.addEventListener('keydown', (e) => {
+    if(e.key === 'Backspace') result.textContent = result.textContent.slice(0,-1);
+    else if(e.key >=0 && e.key <=9) result.textContent += e.key;
+    else if(e.key === '.' && !result.textContent.includes('.')) result.textContent += e.key;
+    else if(e.key === '+' || e.key === '-' || e.key === '=')  {
+        if (history.textContent !== '') {
+            calculate(e.key);
+        }
+        else {
+            history.textContent = result.textContent + ' ' + e.key;
+            result.textContent = ''
+        }
+    }
+    else if(e.key === '*')  {
+        if (history.textContent !== '') {
+            calculate('x');
+        }
+        else {
+            history.textContent = result.textContent + ' ' + 'x';
+            result.textContent = ''
+        }
+    }
+    else if(e.key === '/')  {
+        if (history.textContent !== '') {
+            calculate('÷');
+        }
+        else {
+            history.textContent = result.textContent + ' ' + '÷';
+            result.textContent = ''
+        }
+    }
+})
+
 numberInput.forEach(number => {
 	number.addEventListener('click', () => {
         if(number.textContent === '.' && result.textContent.includes('.')) return
@@ -95,3 +128,4 @@ function calculate(operatorType) {
         result.textContent = '';
     }
 }
+
