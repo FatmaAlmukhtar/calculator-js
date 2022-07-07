@@ -9,33 +9,9 @@ window.addEventListener('keydown', (e) => {
     if(e.key === 'Backspace') result.textContent = result.textContent.slice(0,-1);
     else if(e.key >=0 && e.key <=9) result.textContent += e.key;
     else if(e.key === '.' && !result.textContent.includes('.')) result.textContent += e.key;
-    else if(e.key === '+' || e.key === '-' || e.key === '=')  {
-        if (history.textContent !== '') {
-            calculate(e.key);
-        }
-        else {
-            history.textContent = result.textContent + ' ' + e.key;
-            result.textContent = ''
-        }
-    }
-    else if(e.key === '*')  {
-        if (history.textContent !== '') {
-            calculate('x');
-        }
-        else {
-            history.textContent = result.textContent + ' ' + 'x';
-            result.textContent = ''
-        }
-    }
-    else if(e.key === '/')  {
-        if (history.textContent !== '') {
-            calculate('÷');
-        }
-        else {
-            history.textContent = result.textContent + ' ' + '÷';
-            result.textContent = ''
-        }
-    }
+    else if(e.key === '+' || e.key === '-' || e.key === '=')  calculate(e.key);
+    else if(e.key === '*')  calculate('x');
+    else if(e.key === '/')  calculate('÷');
 })
 
 numberInput.forEach(number => {
@@ -109,23 +85,29 @@ function operate(a, op, b) {
         default:
             break;
     }
-    return res = Math.round((a + Number.EPSILON) * 100) / 100;
+    return res = parseFloat(Math.round(a * 10000) / 10000);
 }
 
 function calculate(operatorType) {
-    if (operatorType === '=') {
-        firstNumber = parseFloat(history.textContent.slice(0,-1));
-        operation = history.textContent.slice(-1);
-        secondNumber = parseFloat(result.textContent);
-        result.textContent = operate(firstNumber, operation, secondNumber).toString();
-        history.textContent = '';
+    if (history.textContent !== '') {
+        if (operatorType === '=') {
+            firstNumber = parseFloat(history.textContent.slice(0,-1));
+            operation = history.textContent.slice(-1);
+            secondNumber = parseFloat(result.textContent);
+            result.textContent = operate(firstNumber, operation, secondNumber).toString();
+            history.textContent = '';
+        }
+        else {
+            firstNumber = parseFloat(history.textContent.slice(0,-1));
+            operation = history.textContent.slice(-1);
+            secondNumber = parseFloat(result.textContent);
+            history.textContent = operate(firstNumber, operation, secondNumber).toString() + ' ' + operatorType;
+            result.textContent = '';
+        }
     }
     else {
-        firstNumber = parseFloat(history.textContent.slice(0,-1));
-        operation = history.textContent.slice(-1);
-        secondNumber = parseFloat(result.textContent);
-        history.textContent = operate(firstNumber, operation, secondNumber).toString() + ' ' + operatorType;
-        result.textContent = '';
+        history.textContent = result.textContent + ' ' + operatorType;
+        result.textContent = ''
     }
 }
 
