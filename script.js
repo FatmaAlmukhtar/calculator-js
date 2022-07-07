@@ -1,14 +1,9 @@
-let operators = document.querySelectorAll('.operator');
-let numberInput = document.querySelectorAll('.number');
-let display = document.querySelector('.display');
-let operatorType = '';
-
-let history = document.querySelector('.history');
-let result = document.querySelector('.res');
-
+const operators = document.querySelectorAll('.operator');
+const numberInput = document.querySelectorAll('.number');
+const history = document.querySelector('.history');
+const result = document.querySelector('.result');
 const clear = document.querySelector('.clear');
 const del = document.querySelector('.delete');
-
 
 numberInput.forEach(number => {
 	number.addEventListener('click', () => {
@@ -23,30 +18,12 @@ operators.forEach(operator => {
         if (result.textContent === '') return
         
         if (history.textContent !== '') {
-            if (operator.textContent === '=') {
-                a = parseFloat(history.textContent.slice(0,-1));
-                op = history.textContent.slice(-1);
-                b = parseFloat(result.textContent);
-                result.textContent = operate(a, op, b).toString();
-                history.textContent = '';
-            }
-            else {
-                a = parseFloat(history.textContent.slice(0,-1));
-                op = history.textContent.slice(-1);
-                b = parseFloat(result.textContent);
-                history.textContent = operate(a, op, b).toString() + ' ' + operator.textContent;
-                result.textContent = '';
-            }
-            
+            calculate(operator.textContent);
         }
         else {
-            operatorType = operator.textContent;
-            input = result.textContent;
-            history.textContent = input + ' ' + operatorType;
+            history.textContent = result.textContent + ' ' + operator.textContent;
             result.textContent = ''
         }
-		
-        
 	})  
      
 });
@@ -75,7 +52,7 @@ function multiply(a, b) {
 function divide(a, b) {
     if (b !== 0) return a / b;
     alert('cannot divide by zero');
-    return;
+    return a;
 }
 
 function operate(a, op, b) {
@@ -99,6 +76,22 @@ function operate(a, op, b) {
         default:
             break;
     }
-    
     return res = Math.round((a + Number.EPSILON) * 100) / 100;
+}
+
+function calculate(operatorType) {
+    if (operatorType === '=') {
+        firstNumber = parseFloat(history.textContent.slice(0,-1));
+        operation = history.textContent.slice(-1);
+        secondNumber = parseFloat(result.textContent);
+        result.textContent = operate(firstNumber, operation, secondNumber).toString();
+        history.textContent = '';
+    }
+    else {
+        firstNumber = parseFloat(history.textContent.slice(0,-1));
+        operation = history.textContent.slice(-1);
+        secondNumber = parseFloat(result.textContent);
+        history.textContent = operate(firstNumber, operation, secondNumber).toString() + ' ' + operatorType;
+        result.textContent = '';
+    }
 }
