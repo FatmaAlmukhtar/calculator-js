@@ -17,7 +17,7 @@ body {
     flex-direction: column;
     align-items: center;
     width: 280px;
-    margin: 80px auto 0 auto;
+    margin: 50px auto 0 auto;
     background: #2f82c525;
 }
 .display {
@@ -26,7 +26,7 @@ body {
     justify-content: space-between;
     align-items: flex-end;
     width: 280px;
-    height: 100px;
+    height: 90px;
     background: #8596AD;
     padding: 10px;
 }
@@ -34,7 +34,7 @@ body {
 .inputs {
     display: grid;
     grid-template-columns: repeat(4, 70px);
-    grid-template-rows: repeat(5, 60px);
+    grid-template-rows: repeat(5, 40px);
 }
 
 .span-two {
