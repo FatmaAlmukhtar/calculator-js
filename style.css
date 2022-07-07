@@ -16,7 +16,7 @@ body {
     display: flex;
     flex-direction: column;
     align-items: center;
-    width: 360px;
+    width: 280px;
     margin: 80px auto 0 auto;
     background: #2f82c525;
 }
@@ -25,17 +25,16 @@ body {
     flex-direction: column;
     justify-content: space-between;
     align-items: flex-end;
-    width: 360px;
-    height: 120px;
+    width: 280px;
+    height: 100px;
     background: #8596AD;
-    padding: 15px;
- 
+    padding: 10px;
 }
 
 .inputs {
     display: grid;
-    grid-template-columns: repeat(4, 90px);
-    grid-template-rows: repeat(5, 80px);
+    grid-template-columns: repeat(4, 70px);
+    grid-template-rows: repeat(5, 60px);
 }
 
 .span-two {
@@ -76,11 +75,15 @@ button:hover {
 
 footer {
     display: flex;
-    margin-top: 35px;
+    align-items: center;
+    justify-content: center;
     bottom: 0;
+    left: 0;
+    width: 100%;
     font-size: 14px;
     height: 30px;
     align-items: center;
+    position: absolute;
 }
 a > img {
     height: 18px;
